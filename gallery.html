@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Photo Gallery - Pala Coffee</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="icon" type="image/x-icon" href="favicon.ico">
+</head>
+<body>
+    <header class="header">
+        <nav class="nav">
+            <div class="nav-brand">
+                <img src="img/logo.jpg" alt="Pala Coffee" class="logo">
+            </div>
+            <div class="nav-menu" id="nav-menu">
+                <a href="index.html" class="nav-link">Home</a>
+                <a href="about.html" class="nav-link">About</a>
+                <a href="menu.html" class="nav-link">Menu</a>
+                <a href="gallery.html" class="nav-link active">Gallery</a>
+                <a href="contact.html" class="nav-link">Contact</a>
+            </div>
+            <div class="nav-toggle" id="nav-toggle">
+                <span class="bar"></span>
+                <span class="bar"></span>
+                <span class="bar"></span>
+            </div>
+        </nav>
+    </header>
+
+    <main>
+        <section class="page-hero">
+            <div class="container">
+                <h1 class="page-title">Photo Gallery</h1>
+                <p class="page-subtitle">A visual journey through our coffee experience</p>
+            </div>
+        </section>
+
+        <section class="gallery-content">
+            <div class="container">
+                <div class="gallery-grid" id="gallery-grid">
+                    <!-- Gallery images will be dynamically loaded here -->
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Lightbox Modal -->
+    <div class="lightbox" id="lightbox">
+        <div class="lightbox-content">
+            <span class="lightbox-close" id="lightbox-close">
+                <img src="img/close.svg" alt="Close" class="close-icon">
+            </span>
+            <img class="lightbox-image" id="lightbox-image" src="" alt="">
+            <div class="lightbox-nav">
+                <button class="lightbox-prev" id="lightbox-prev">
+                    <img src="img/left.svg" alt="Previous" class="nav-icon">
+                </button>
+                <button class="lightbox-next" id="lightbox-next">
+                    <img src="img/right.svg" alt="Next" class="nav-icon">
+                </button>
+            </div>
+            <div class="lightbox-counter" id="lightbox-counter"></div>
+        </div>
+    </div>
+
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-brand">
+                    <h4>Pala Coffee</h4>
+                    <p>Drive thru coffee experience since 2025</p>
+                </div>
+                <div class="footer-links">
+                    <h5>Quick Links</h5>
+                    <a href="index.html">Home</a>
+                    <a href="about.html">About</a>
+                    <a href="gallery.html">Gallery</a>
+                    <a href="contact.html">Contact</a>
+                </div>
+                <div class="footer-address">
+                    <h5>Visit Us</h5>
+                    <a href="https://www.google.com/maps/dir/?api=1&destination=2/6+Phillip+Street+Dallas+VIC+3047" target="_blank" rel="noopener noreferrer" class="address-link">
+                        <span class="address-icon">📍</span>
+                        2/6 Phillip Street<br>Dallas VIC 3047
+                    </a>
+                </div>
+                <div class="footer-social">
+                    <h5>Follow Us</h5>
+                    <div class="social-links">
+                        <a href="https://www.instagram.com/pala_coffee/" target="_blank" rel="noopener noreferrer" class="social-link">
+                            <span class="social-icon">📷</span>
+                            Instagram
+                        </a>
+                        <a href="#" class="social-link">
+                            <span class="social-icon">📘</span>
+                            Facebook
+                        </a>
+                        <a href="#" class="social-link">
+                            <span class="social-icon">🐦</span>
+                            Twitter
+                        </a>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2025 Pala Coffee. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="https://unpkg.com/masonry-layout@4/dist/masonry.pkgd.min.js"></script>
+    <script src="script.js"></script>
+    <script src="gallery.js"></script>
+</body>
+</html>
