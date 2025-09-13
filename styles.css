@@ -303,21 +303,13 @@ body::before {
 
 .coffee-roasting {
     width: 400px;
-    height: 300px;
-    background: linear-gradient(135deg, #8b4513 0%, #654321 50%, #3e2723 100%);
+    height: 400px;
+    background-image: url('img/coffee.jpg');
+    background-size: cover;
+    background-position: center;
     border-radius: 20px;
     position: relative;
     box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
-}
-
-.coffee-roasting::before {
-    content: '🔥';
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    font-size: 4rem;
-    color: #d4af37;
 }
 
 /* Values Section */
@@ -585,7 +577,8 @@ body::before {
 }
 
 .social-icon {
-    font-size: 2rem;
+    width: 2rem;
+    height: 2rem;
 }
 
 .social-link-large h4 {
@@ -654,19 +647,21 @@ body::before {
 }
 
 .menu-table th {
-    background: linear-gradient(135deg, #d4af37, #b8941f);
+    background-color: #d4af37;
     color: #000;
     padding: 1.2rem 1rem;
     font-weight: 600;
     font-size: 1.1rem;
     text-align: left;
     border: none;
+    border-right: 1px solid rgba(184, 148, 31, 0.4);
 }
 
 .menu-table td {
     padding: 1rem;
     color: #f8f9fa;
-    border-bottom: 1px solid rgba(212, 175, 55, 0.2);
+    border-bottom: 1px solid rgba(184, 148, 31, 0.3);
+    border-right: 1px solid rgba(184, 148, 31, 0.2);
     font-size: 1rem;
     line-height: 1.5;
 }
@@ -682,6 +677,11 @@ body::before {
 .menu-table tr:hover {
     background-color: rgba(212, 175, 55, 0.1);
     transition: background-color 0.3s ease;
+}
+
+.menu-table th:last-child,
+.menu-table td:last-child {
+    border-right: none;
 }
 
 .menu-table td:last-child {
@@ -901,10 +901,6 @@ body::before {
     .coffee-roasting {
         width: 250px;
         height: 250px;
-    }
-
-    .coffee-roasting {
-        height: 200px;
     }
 
     .social-links-large {
