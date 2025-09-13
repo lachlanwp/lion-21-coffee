@@ -126,11 +126,23 @@ body::before {
     overflow: hidden;
 }
 
+.hero-video {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    opacity: 0.3;
+    z-index: 1;
+}
+
 .hero-content {
     flex: 1;
     max-width: 600px;
     padding: 0 2rem;
-    z-index: 2;
+    z-index: 3;
+    position: relative;
 }
 
 .hero-title {
@@ -174,6 +186,7 @@ body::before {
     justify-content: center;
     align-items: center;
     position: relative;
+    z-index: 3;
 }
 
 .hero-logo {
@@ -596,8 +609,8 @@ body::before {
 
 /* Page Hero - Standardized for all pages */
 .page-hero {
-    background: linear-gradient(135deg, rgba(0, 0, 0, 0.8), rgba(212, 175, 55, 0.2));
-    padding: 140px 0 80px;
+    background: linear-gradient(135deg, rgba(13, 17, 23, 0.8) 0%, rgba(26, 26, 26, 0.8) 100%);
+    padding: 160px 0 80px;
     text-align: center;
     margin-top: 0;
 }
@@ -622,6 +635,7 @@ body::before {
 
 .menu-content {
     padding: 80px 0;
+    background-color: rgba(26, 26, 26, 0.7);
 }
 
 .menu-section {
@@ -901,6 +915,10 @@ body::before {
     .coffee-roasting {
         width: 250px;
         height: 250px;
+    }
+
+    .hero-image {
+        margin-top: 2rem;
     }
 
     .social-links-large {
