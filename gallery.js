@@ -25,82 +25,123 @@ document.addEventListener('DOMContentLoaded', function() {
         { src: 'img/gallery/009.jpg', alt: 'Coffee shop exterior' }
     ];
     
+    // Preload all images before rendering gallery
+    function preloadImages() {
+        return new Promise((resolve, reject) => {
+            const imagePromises = galleryImages.map((imageData, index) => {
+                return new Promise((imgResolve, imgReject) => {
+                    const img = new Image();
+                    img.onload = () => imgResolve({ ...imageData, index });
+                    img.onerror = () => imgReject({ ...imageData, index, error: true });
+                    img.src = imageData.src;
+                });
+            });
+            
+            Promise.allSettled(imagePromises).then(results => {
+                const loadedImages = results
+                    .filter(result => result.status === 'fulfilled')
+                    .map(result => result.value);
+                
+                const failedImages = results
+                    .filter(result => result.status === 'rejected')
+                    .map(result => result.value);
+                
+                resolve({ loadedImages, failedImages });
+            });
+        });
+    }
+    
     // Initialize gallery
     function initGallery() {
-        // Clear existing content
-        galleryGrid.innerHTML = '';
+        // Show loading indicator
+        galleryGrid.innerHTML = `
+            <div style="display: flex; align-items: center; justify-content: center; height: 200px; color: #666; font-size: 1.2rem;">
+                Loading gallery...
+            </div>
+        `;
         
-        // Create gallery items
-        galleryImages.forEach((image, index) => {
-            const galleryItem = document.createElement('div');
-            galleryItem.className = 'gallery-item';
-            galleryItem.setAttribute('data-index', index);
+        // Preload all images first
+        preloadImages().then(({ loadedImages, failedImages }) => {
+            // Clear loading indicator
+            galleryGrid.innerHTML = '';
             
-            const img = document.createElement('img');
-            img.src = image.src;
-            img.alt = image.alt;
-            img.loading = 'lazy';
+            // Create gallery items for successfully loaded images
+            loadedImages.forEach((imageData) => {
+                const galleryItem = document.createElement('div');
+                galleryItem.className = 'gallery-item';
+                galleryItem.setAttribute('data-index', imageData.index);
+                
+                const img = document.createElement('img');
+                img.src = imageData.src;
+                img.alt = imageData.alt;
+                img.loading = 'eager'; // Images are already loaded, so use eager loading
+                
+                galleryItem.appendChild(img);
+                galleryGrid.appendChild(galleryItem);
+                
+                // Add click event listener
+                galleryItem.addEventListener('click', () => openLightbox(imageData.index));
+            });
             
-            // Add error handling for missing images
-            img.onerror = function() {
-                this.style.display = 'none';
-                galleryItem.innerHTML = `
-                    <div style="display: flex; align-items: center; justify-content: center; height: 200px; color: #666; font-size: 1.2rem;">
-                        Image not found
-                    </div>
-                `;
-            };
-            
-            galleryItem.appendChild(img);
-            galleryGrid.appendChild(galleryItem);
-            
-            // Add click event listener
-            galleryItem.addEventListener('click', () => openLightbox(index));
-        });
-        
-        // Initialize Masonry after images are loaded
-        setTimeout(() => {
-            if (typeof Masonry !== 'undefined') {
-                // Calculate optimal column width based on container
-                const containerWidth = galleryGrid.offsetWidth;
-                const gutter = 16;
-                const minItemWidth = 250;
-                const maxItemWidth = 350;
-                
-                // Calculate number of columns that fit
-                let columns = Math.floor((containerWidth + gutter) / (minItemWidth + gutter));
-                columns = Math.max(1, Math.min(columns, 6)); // Between 1 and 6 columns
-                
-                // Calculate optimal item width
-                const itemWidth = Math.floor((containerWidth - (columns - 1) * gutter) / columns);
-                const finalItemWidth = Math.max(minItemWidth, Math.min(maxItemWidth, itemWidth));
-                
-                masonry = new Masonry(galleryGrid, {
-                    itemSelector: '.gallery-item',
-                    columnWidth: finalItemWidth,
-                    gutter: gutter,
-                    percentPosition: false,
-                    horizontalOrder: true,
-                    transitionDuration: 0
-                });
-                
-                // Update CSS with calculated width
-                document.documentElement.style.setProperty('--masonry-item-width', finalItemWidth + 'px');
-                
-                // Layout Masonry after each image loads
-                const images = galleryGrid.querySelectorAll('img');
-                images.forEach(img => {
-                    img.addEventListener('load', () => {
-                        if (masonry) {
-                            masonry.layout();
-                        }
-                    });
+            // Handle failed images
+            if (failedImages.length > 0) {
+                console.warn('Some images failed to load:', failedImages);
+                failedImages.forEach((imageData) => {
+                    const galleryItem = document.createElement('div');
+                    galleryItem.className = 'gallery-item';
+                    galleryItem.setAttribute('data-index', imageData.index);
+                    galleryItem.innerHTML = `
+                        <div style="display: flex; align-items: center; justify-content: center; height: 200px; color: #666; font-size: 1.2rem;">
+                            Image not found
+                        </div>
+                    `;
+                    galleryGrid.appendChild(galleryItem);
                 });
             }
-        }, 100);
-        
-        // Store images array for lightbox navigation
-        images = galleryImages;
+            
+            // Initialize Masonry after all images are loaded
+            setTimeout(() => {
+                if (typeof Masonry !== 'undefined') {
+                    // Calculate optimal column width based on container
+                    const containerWidth = galleryGrid.offsetWidth;
+                    const gutter = 16;
+                    const minItemWidth = 250;
+                    const maxItemWidth = 350;
+                    
+                    // Calculate number of columns that fit
+                    let columns = Math.floor((containerWidth + gutter) / (minItemWidth + gutter));
+                    columns = Math.max(1, Math.min(columns, 6)); // Between 1 and 6 columns
+                    
+                    // Calculate optimal item width
+                    const itemWidth = Math.floor((containerWidth - (columns - 1) * gutter) / columns);
+                    const finalItemWidth = Math.max(minItemWidth, Math.min(maxItemWidth, itemWidth));
+                    
+                    masonry = new Masonry(galleryGrid, {
+                        itemSelector: '.gallery-item',
+                        columnWidth: finalItemWidth,
+                        gutter: gutter,
+                        percentPosition: false,
+                        horizontalOrder: true,
+                        transitionDuration: 0
+                    });
+                    
+                    // Update CSS with calculated width
+                    document.documentElement.style.setProperty('--masonry-item-width', finalItemWidth + 'px');
+                    
+                    // Layout Masonry immediately since images are already loaded
+                    if (masonry) {
+                        masonry.layout();
+                    }
+                }
+            }, 50); // Reduced timeout since images are preloaded
+            
+            // Store images array for lightbox navigation
+            images = galleryImages;
+        }).catch(error => {
+            console.error('Error preloading images:', error);
+            // Fallback to original behavior if preloading fails
+            galleryGrid.innerHTML = '<div style="display: flex; align-items: center; justify-content: center; height: 200px; color: #666; font-size: 1.2rem;">Error loading gallery</div>';
+        });
     }
     
     // Open lightbox
@@ -242,18 +283,8 @@ document.addEventListener('DOMContentLoaded', function() {
         }, 250);
     });
     
-    // No loading animations - images load instantly
-    const galleryItems = document.querySelectorAll('.gallery-item img');
-    galleryItems.forEach(img => {
-        img.style.opacity = '1';
-    });
-    
-    // No animations - gallery items appear instantly
-    const galleryItemsElements = document.querySelectorAll('.gallery-item');
-    galleryItemsElements.forEach(item => {
-        item.style.opacity = '1';
-        item.style.transform = 'translateY(0)';
-    });
+    // Images are preloaded, so they appear instantly
+    // This code is now handled in the preloadImages function
     
     // Preload next and previous images for smoother navigation
     function preloadAdjacentImages() {
