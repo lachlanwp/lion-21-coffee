@@ -326,6 +326,66 @@ body::before {
     background: linear-gradient(135deg, rgba(13, 17, 23, 0.8) 0%, rgba(26, 26, 26, 0.8) 100%);
 }
 
+/* Reviews Section */
+.reviews {
+    padding: 5rem 0;
+    background-color: rgba(26, 26, 26, 0.7);
+}
+
+.reviews h3 {
+    text-align: center;
+    font-size: 2.5rem;
+    font-weight: 700;
+    margin-bottom: 3rem;
+    color: #f8f9fa;
+}
+
+.reviews-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+    gap: 2rem;
+}
+
+.review-item {
+    background: linear-gradient(135deg, #2d2d2d 0%, #1a1a1a 100%);
+    padding: 2rem;
+    border-radius: 15px;
+    border: 1px solid #333;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.review-item:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+}
+
+.review-rating {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    margin-bottom: 1rem;
+}
+
+.star {
+    color: #d4af37;
+    font-size: 1.2rem;
+    text-shadow: 0 0 5px rgba(212, 175, 55, 0.5);
+}
+
+.rating-text {
+    color: #d4af37;
+    font-weight: 600;
+    font-size: 1rem;
+    margin-left: 0.5rem;
+}
+
+.review-text {
+    color: #b3b3b3;
+    line-height: 1.6;
+    font-style: italic;
+    margin: 0;
+}
+
 .values h3 {
     text-align: center;
     font-size: 2.5rem;
@@ -865,6 +925,10 @@ body::before {
     .values-grid {
         grid-template-columns: 1fr;
     }
+
+    .reviews-grid {
+        grid-template-columns: 1fr;
+    }
 }
 
 @media (max-width: 480px) {
@@ -886,6 +950,14 @@ body::before {
 
 
     .contact-form-container {
+        padding: 1.5rem;
+    }
+
+    .reviews h3 {
+        font-size: 2rem;
+    }
+
+    .review-item {
         padding: 1.5rem;
     }
 }
