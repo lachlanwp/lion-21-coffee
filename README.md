@@ -40,9 +40,9 @@ A modern, responsive website for Lion 21 Coffee featuring a dark/slate theme ins
 
 The footer includes links to Lion 21 Coffee's social media accounts:
 
-- Instagram: [@lion21coffee](https://www.instagram.com/lion21coffee/)
+- Instagram: [@lion21.coffee](https://www.instagram.com/lion21.coffee/)
 - Facebook: Lion 21 Coffee
-- Twitter: @lion21coffee
+- Twitter: @lion21.coffee
 
 ## Browser Support
 
