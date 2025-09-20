@@ -1,6 +1,6 @@
-# Pala Coffee Website
+# Lion 21 Coffee Website
 
-A modern, responsive website for Pala Coffee featuring a dark/slate theme inspired by premium coffee branding.
+A modern, responsive website for Lion 21 Coffee featuring a dark/slate theme inspired by premium coffee branding.
 
 ## Features
 
@@ -38,10 +38,11 @@ A modern, responsive website for Pala Coffee featuring a dark/slate theme inspir
 
 ## Social Media Links
 
-The footer includes links to Pala Coffee's social media accounts:
-- Instagram: [@pala_coffee](https://www.instagram.com/pala_coffee/)
-- Facebook: Pala Coffee
-- Twitter: @palacoffee
+The footer includes links to Lion 21 Coffee's social media accounts:
+
+- Instagram: [@lion21coffee](https://www.instagram.com/lion21coffee/)
+- Facebook: Lion 21 Coffee
+- Twitter: @lion21coffee
 
 ## Browser Support
 
