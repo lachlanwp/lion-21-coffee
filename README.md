@@ -1,6 +1,6 @@
 # Lion 21 Coffee Website
 
-A modern, responsive website for Lion 21 Coffee featuring a dark/slate theme inspired by premium coffee branding.
+A modern and responsive website for Lion 21 Coffee featuring a dark/slate theme inspired by premium coffee branding.
 
 ## Features
 
